@@ -414,7 +414,8 @@ reveal();
     if (!p || !projectDrawer) return;
     lastFocus = trigger;
     const catLabel = getCatLabel(p.cat);
-    const repoBtn = p.repo
+    const isGallery = /gallery|photo/i.test(p.title || '') || /image-gallery/i.test(p.repo || '');
+   const repoBtn = (isGallery && p.repo)
       ? `<div class="btns"><a class="btn btn-p" href="${esc(p.repo)}" target="_blank" rel="noopener noreferrer"><i class="ri-github-fill"></i> View on GitHub</a></div>`
       : '';
     document.querySelector('#d-body').innerHTML = `
