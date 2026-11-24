@@ -1,0 +1,180 @@
+/* ===== المتغيرات: الألوان والخطوط والحواف. غيّر --accent لتغيير لون التمييز الأساسي (أو استخدم أزرار الألوان بالصفحة) ===== */
+:root{--bg:#07070d;--surface:rgba(18,18,30,.62);--surface-2:rgba(255,255,255,.06);--bd:rgba(255,255,255,.08);--text:#e8eaf0;--muted:#98a0b3;
+ --accent:#6ea8fe;--accent-rgb:110,168,254;--fh:'Sora',system-ui,sans-serif;--fb:'IBM Plex Sans',system-ui,sans-serif;--fm:'IBM Plex Mono',ui-monospace,monospace;--r:16px}
+/* إعادة ضبط الهوامش وجعل حساب الأبعاد أسهل */
+*{box-sizing:border-box;margin:0;padding:0}
+/* تمرير ناعم بين الأقسام + مسافة تعويض حتى لا يغطي الشريط العلوي عنوان القسم */
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+/* الجسم: لون القاعدة الداكن والخط. الخلفية الملونة الفعلية موجودة في .bg أدناه */
+body{background:var(--bg);color:var(--text);font:400 1rem/1.7 var(--fb);overflow-x:hidden}
+/* تنسيقات عامة للروابط والقوائم والأزرار */
+a{color:inherit;text-decoration:none}ul{list-style:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+/* العناوين: خط Sora وأحجام متجاوبة (تكبر وتصغر حسب عرض الشاشة) */
+h1,h2,h3{font-family:var(--fh);letter-spacing:-.02em;line-height:1.15}
+h1{font-size:clamp(2.2rem,6vw,3.9rem);margin-bottom:1.2rem}h2{font-size:clamp(1.7rem,3.6vw,2.4rem);margin-bottom:1.8rem}h3{font-size:1.08rem}
+/* إطار واضح عند التنقل بلوحة المفاتيح (مهم لإمكانية الوصول) */
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+/* حاوية المحتوى: عرض أقصى 1120px وتوسيط + مسافة رأسية لكل قسم */
+.wrap{width:min(1120px,100% - 2.5rem);margin-inline:auto}.sec{padding:5.5rem 0}
+/* الفقرات التعريفية بلون هادئ وعرض مريح للقراءة */
+.lead{color:var(--muted);max-width:58ch;margin-bottom:1.3rem}.lead.big{color:#c9cedb;font-size:1.1rem}
+/* رابط "تخطي المحتوى": مخفي حتى يُركَّز عليه بلوحة المفاتيح */
+.skip{position:absolute;left:-999px}.skip:focus{left:1rem;top:1rem;z-index:99;background:var(--accent);color:#06101a;padding:.5rem 1rem;border-radius:8px}
+
+/* ===== الخلفية الملونة: طبقة ثابتة خلف كل المحتوى ===== */
+/* .bg: قاعدة داكنة متدرجة | .blob: كتل ضوئية ضبابية بألوان (بنفسجي/سماوي/وردي/أزرق) | .grain: شبكة نقاط خفيفة | ::after: تعتيم حواف (Vignette) لتبقى النصوص مقروءة */
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none;background:linear-gradient(180deg,#07070d,#0a0a15)}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;will-change:transform;animation:drift 22s ease-in-out infinite alternate}
+.b1{width:55vmax;height:55vmax;left:-18vmax;top:-20vmax;background:#6d28d9}
+.b2{width:48vmax;height:48vmax;right:-16vmax;top:5vmax;background:#0891b2;animation-delay:-8s}
+.b3{width:42vmax;height:42vmax;left:20vmax;bottom:-24vmax;background:#be185d;opacity:.4;animation-delay:-14s}
+.b4{width:30vmax;height:30vmax;right:8vmax;bottom:10vmax;background:#2563eb;opacity:.35;animation-delay:-4s}
+/* حركة انجراف بطيئة جداً للكتل الضوئية (تعتمد transform فقط لأداء سلس) */
+@keyframes drift{to{transform:translate3d(6vmax,5vmax,0) scale(1.12)}}
+.grain{position:absolute;inset:0;background:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px) 0 0/26px 26px;-webkit-mask-image:radial-gradient(ellipse at 50% 35%,#000,transparent 80%);mask-image:radial-gradient(ellipse at 50% 35%,#000,transparent 80%)}
+.bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(7,7,13,.12),rgba(7,7,13,.72))}
+/* ===== الأسطح الزجاجية: البطاقات بخلفية نصف شفافة + تمويه، فتظهر ألوان الخلفية من خلفها ===== */
+.card{background:var(--surface);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--bd);border-radius:var(--r);transition:border-color .3s,box-shadow .3s,transform .3s}
+/* تأثير المرور (hover): إطار بلون التمييز + توهج خفيف + رفع 3px */
+.hov:hover,.card.hov:hover{border-color:rgba(var(--accent-rgb),.55);box-shadow:0 10px 34px -12px rgba(var(--accent-rgb),.35);transform:translateY(-3px)}
+
+/* ظهور العناصر عند التمرير: تبدأ مخفية ثم تصعد وتظهر بتأخير متدرج بسيط (--d) */
+[data-r]:not(.in){opacity:0}
+[data-r].in{animation:up .7s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--d,0) * 70ms)}
+/* حركة الصعود للأعلى مع الظهور التدريجي */
+@keyframes up{from{opacity:0;transform:translateY(18px)}}
+
+
+/* ===== شريط التنقل الكبسولة: عائم ومتوسط أعلى الصفحة وحواف دائرية بالكامل (999px) ===== */
+.nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:60;width:min(900px,100% - 1.4rem);height:58px;padding:0 .55rem 0 1.4rem;display:flex;align-items:center;justify-content:space-between;border-radius:999px;background:rgba(14,14,24,.6);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);border:1px solid rgba(255,255,255,.1);box-shadow:0 12px 40px -14px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.06)}
+.logo{font:700 1.3rem var(--fh)}.logo span{color:var(--accent)}
+/* على الجوال: القائمة تنزل تحت الكبسولة كبطاقة | .links.open تظهرها | .ind مخفي على الجوال */
+.links{position:absolute;top:calc(100% + 10px);left:0;right:0;display:grid;gap:.2rem;padding:.7rem;border-radius:24px;background:rgba(14,14,24,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.1);opacity:0;visibility:hidden;transform:translateY(-8px);transition:.25s}
+.links.open{opacity:1;visibility:visible;transform:none}
+.links a{display:block;padding:.7rem 1rem;border-radius:14px;color:var(--muted);transition:color .25s,background .25s}.links a:hover{color:var(--text)}.links a.on{color:var(--text);background:rgba(var(--accent-rgb),.16)}
+.ind{display:none}
+.nav-r{display:flex;align-items:center;gap:.8rem}
+/* أزرار تبديل لون التمييز (نقاط صغيرة) */
+.accents{display:flex;gap:.45rem}.accents button{width:16px;height:16px;border-radius:50%;background:var(--c);opacity:.55;transition:.2s}
+.accents button:hover{opacity:1}.accents button[aria-pressed=true]{opacity:1;box-shadow:0 0 0 2px #0d0d16,0 0 0 3.5px var(--c)}
+.nav-r .accents{display:none}.mob-acc{padding:.5rem 1rem .3rem}
+/* زر القائمة للجوال */
+.burger{width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,.07);font-size:1.25rem;display:grid;place-items:center;transition:background .25s}.burger:hover{background:rgba(var(--accent-rgb),.2)}
+/* ===== قسم الواجهة (Hero): عمودان على الشاشات الكبيرة ===== */
+.hero{padding-top:9rem;min-height:92svh;display:grid;align-items:center}
+.hero-grid{display:grid;gap:3rem;align-items:center}
+/* شارة "متاح للعمل" */
+.badge{display:inline-flex;align-items:center;gap:.6rem;border:1px solid var(--bd);background:var(--surface);border-radius:99px;padding:.3rem 1rem;font-size:.88rem;color:var(--muted);margin-bottom:1.4rem}
+.dot{width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 4px rgba(74,222,128,.18)}
+.btns{display:flex;flex-wrap:wrap;gap:.7rem;margin:1.6rem 0}
+/* الأزرار: .btn-p رئيسي بلون التمييز | .btn-o بإطار | .btn-t نصي */
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.35rem;border-radius:12px;font-weight:500;transition:.25s}
+.btn-p{background:var(--accent);color:#06101a}.btn-p:hover{transform:translateY(-2px);box-shadow:0 10px 28px -8px rgba(var(--accent-rgb),.6)}
+.btn-o{border:1px solid var(--bd);background:var(--surface)}.btn-o:hover{border-color:var(--accent);color:var(--accent)}
+.btn-t{color:var(--muted)}.btn-t:hover{color:var(--accent)}
+.btn:disabled{opacity:.7;cursor:default;transform:none}
+/* أيقونات التواصل الاجتماعي */
+.soc{display:flex;gap:.6rem}.soc a{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;border:1px solid var(--bd);background:var(--surface);font-size:1.15rem;transition:.25s}
+.soc a:hover{color:var(--accent);border-color:var(--accent);transform:translateY(-2px)}
+
+/* ===== قسم نبذة عني: عمود للنص وعمود للمهارات ===== */
+.about{display:grid;gap:2.5rem}
+.skills{display:grid;gap:1rem}
+/* مجموعة مهارات + شارات المهارات (.chip) بخط أحادي المسافة */
+.sgroup{padding:1.2rem 1.3rem}.sgroup h3{display:flex;align-items:center;gap:.6rem;margin-bottom:.8rem}.sgroup h3 i{color:var(--accent);font-size:1.25rem}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem}
+.chip{font-family:var(--fm);font-size:.82rem;padding:.25rem .7rem;border-radius:8px;background:var(--surface-2);border:1px solid var(--bd);color:#c9cedb;transition:.2s}
+.chip:hover{border-color:rgba(var(--accent-rgb),.6);color:var(--accent)}
+
+/* ===== التبويبات (تُستخدم في فلتر المشاريع وتبويبات الدورات) ===== */
+.tabs{display:flex;gap:.4rem;overflow-x:auto;padding:.3rem;margin-bottom:1.6rem;border:1px solid var(--bd);background:var(--surface);border-radius:14px;width:fit-content;max-width:100%}
+.tab{padding:.5rem 1.1rem;border-radius:10px;color:var(--muted);white-space:nowrap;transition:.25s}.tab:hover{color:var(--text)}.tab[aria-selected=true]{background:var(--accent);color:#06101a;font-weight:500}
+/* شبكة البطاقات: تضبط عدد الأعمدة تلقائياً حسب العرض */
+.grid{display:grid;gap:1.1rem;grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
+/* بطاقة المشروع: صورة مصغرة متدرجة + نص + أدوات */
+.proj{text-align:left;display:flex;flex-direction:column;overflow:hidden;padding:0;width:100%}
+.thumb{height:140px;position:relative;display:grid;place-items:center;font-size:2.6rem;color:rgba(255,255,255,.92);background:linear-gradient(135deg,var(--a),var(--b));overflow:hidden}
+.thumb::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 80% 10%,rgba(255,255,255,.22),transparent 55%)}
+.thumb i{position:relative;z-index:1;transition:transform .5s}.proj:hover .thumb i{transform:scale(1.12)}
+.proj-b{padding:1.1rem 1.25rem 1.3rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.proj-b p{color:var(--muted);font-size:.93rem}.proj-b .chips{margin-top:auto;padding-top:.5rem}
+.tag{font-size:.8rem;color:var(--accent)}
+/* بطاقات الدورات والتدريبات والشهادات + شارات الحالة (.st) */
+.litem{padding:1.3rem}.litem .top{display:flex;justify-content:space-between;gap:.8rem;align-items:start;margin-bottom:.5rem}
+.litem p{color:var(--muted);font-size:.93rem}.litem .meta{margin-top:.9rem;display:flex;flex-wrap:wrap;gap:.5rem}
+.st{font-size:.78rem;padding:.15rem .65rem;border-radius:99px;border:1px solid var(--bd);color:var(--muted);white-space:nowrap}
+.st.done{color:#4ade80;border-color:rgba(74,222,128,.35)}.st.prog{color:var(--accent);border-color:rgba(var(--accent-rgb),.4)}
+.litem .ico{font-size:1.4rem;color:var(--accent)}
+
+/* ===== قسم التواصل: عمود للمعلومات وعمود للصورة ===== */
+.contact{display:grid;gap:2.5rem;align-items:center}
+/* بطاقة البريد وزر النسخ: الأيقونة تتحول من نسخ إلى صح عند .done */
+.mail{display:flex;align-items:center;gap:.8rem;padding:.7rem .7rem .7rem 1.1rem;flex-wrap:wrap;margin-bottom:1rem}.mail>i{color:var(--accent);font-size:1.2rem}.mail span{word-break:break-all}
+.copy{position:relative;margin-left:auto;display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .9rem .45rem 2rem;border-radius:10px;background:var(--surface-2);border:1px solid var(--bd);transition:.25s}
+.copy i{position:absolute;left:.7rem;transition:transform .35s,opacity .25s}.copy .b{opacity:0;transform:scale(.4)}
+.copy:hover{border-color:var(--accent)}.copy.done{background:var(--accent);color:#06101a;border-color:var(--accent)}.copy.done .a{opacity:0;transform:scale(.4)}.copy.done .b{opacity:1;transform:none}
+/* ===== التذييل ===== */
+.foot{border-top:1px solid var(--bd);padding:2rem 0 3rem;color:var(--muted)}.foot-in{display:grid;gap:1rem;justify-items:center;text-align:center}
+.fl{display:flex;gap:1.3rem;flex-wrap:wrap;justify-content:center}.fl a:hover{color:var(--accent)}
+/* رسالة التأكيد العائمة أسفل الشاشة */
+.toast{position:fixed;left:50%;bottom:22px;z-index:200;transform:translate(-50%,150%);background:var(--surface-2);border:1px solid rgba(var(--accent-rgb),.5);padding:.7rem 1.2rem;border-radius:12px;transition:transform .4s cubic-bezier(.2,.8,.2,1);max-width:calc(100% - 2rem)}.toast.show{transform:translate(-50%,0)}
+
+/* ===== درج تفاصيل المشروع: خلفية معتمة + لوح ينزلق من اليمين ===== */
+.scrim{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .35s}.scrim.show{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:100;width:min(540px,100%);background:#0d0d16;border-left:1px solid var(--bd);padding:1.4rem 1.5rem 2.5rem;overflow-y:auto;transform:translateX(104%);transition:transform .45s cubic-bezier(.2,.8,.2,1);overscroll-behavior:contain}.drawer.open{transform:none}
+.x{position:sticky;top:0;margin-left:auto;display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--surface-2);border:1px solid var(--bd);font-size:1.25rem;z-index:2}.x:hover{border-color:var(--accent);color:var(--accent)}
+.drawer .thumb{border-radius:14px;margin:.4rem 0 1.2rem;height:150px}.drawer h2{font-size:1.7rem;margin:.2rem 0 .8rem}
+.drawer h4{font:600 1rem var(--fh);margin:1.4rem 0 .5rem;color:var(--accent)}.drawer p,.drawer li{color:#b9c0d0}
+.drawer ul{display:grid;gap:.5rem;padding-left:1.1rem;list-style:disc}.drawer .btns{margin:1.6rem 0 0}
+
+/* ===== الصور: إطار أنيق + طفو بطيء (float) + ميلان خفيف يتحكم به JS عبر --rx و --ry ===== */
+.hero-vis{max-width:400px;width:100%;margin:auto;position:relative}
+.float{position:relative;animation:float 7s ease-in-out infinite}.float.f2{animation-delay:-3s}
+@keyframes float{50%{transform:translateY(-9px)}}
+.frame{position:relative;overflow:hidden;border-radius:22px;border:1px solid var(--bd);background:var(--surface);aspect-ratio:5/6;
+ box-shadow:0 30px 60px -30px rgba(0,0,0,.85),0 0 70px -24px rgba(var(--accent-rgb),.4);
+ transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .5s cubic-bezier(.2,.7,.2,1),box-shadow .4s,border-color .4s}
+.frame.wide{aspect-ratio:4/3}.frame:hover{border-color:rgba(var(--accent-rgb),.5)}
+.frame img,.frame svg{display:block;width:100%;height:100%;object-fit:cover}
+.frame::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .4s;background:radial-gradient(360px circle at var(--gx,50%) var(--gy,30%),rgba(255,255,255,.09),transparent 60%)}.frame:hover::after{opacity:1}
+/* شريحة الحالة الصغيرة فوق صورة الواجهة */
+.fchip{position:absolute;left:-1.2rem;bottom:2rem;display:flex;align-items:center;gap:.6rem;padding:.55rem 1rem;border-radius:99px;font-size:.85rem;background:rgba(17,17,21,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--bd);box-shadow:0 12px 30px -12px rgba(0,0,0,.7)}
+.cvis{max-width:520px;width:100%}.info{display:grid;gap:.6rem;color:var(--muted);margin:0 0 1.2rem}.info li{display:flex;gap:.6rem;align-items:center}.info i{color:var(--accent)}
+
+/* ===== خانة صورة الشهادة تحت العنوان + أيقونة التكبير + نافذة المعاينة ===== */
+.cert h3{margin-bottom:0}
+.cert-img{position:relative;display:block;width:100%;aspect-ratio:10/7;margin:.9rem 0;border-radius:12px;overflow:hidden;border:1px solid var(--bd);background:var(--bg);cursor:zoom-in;padding:0;transition:border-color .3s}
+.cert-img img,.cert-img svg{display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.cert-img:hover{border-color:rgba(var(--accent-rgb),.6)}.cert-img:hover img,.cert-img:hover svg{transform:scale(1.04)}
+.zoom{position:absolute;right:.6rem;bottom:.6rem;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(9,9,11,.75);backdrop-filter:blur(6px);border:1px solid var(--bd);opacity:0;transform:translateY(4px);transition:.3s}
+.cert-img:hover .zoom,.cert-img:focus-visible .zoom{opacity:1;transform:none}
+@media (hover:none){.zoom{opacity:1;transform:none}}
+.lb{position:fixed;inset:0;z-index:150;display:grid;place-items:center;padding:1.5rem;background:rgba(9,9,11,.88);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}.lb.show{opacity:1;visibility:visible}
+.lb .x{position:absolute;top:1rem;right:1rem}.lb figure{width:min(900px,100%);transform:scale(.96);transition:transform .35s cubic-bezier(.2,.8,.2,1)}.lb.show figure{transform:none}
+.lb figure>img,.lb figure>svg{display:block;width:100%;max-height:74vh;object-fit:contain;border-radius:14px;border:1px solid var(--bd);background:var(--surface)}
+.lb figcaption{margin-top:.8rem;text-align:center;color:var(--muted)}.lb figcaption b{color:var(--text);font-family:var(--fh)}
+
+/* ===== التجاوب: التابلت وسطح المكتب (شريط الروابط يظهر ويختفي زر الجوال) ===== */
+@media (min-width:820px){
+ .burger{display:none}.mob-acc{display:none}.nav-r .accents{display:flex}
+ .links{position:relative;top:0;display:flex;gap:.15rem;padding:0;background:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none;transform:none;opacity:1;visibility:visible;border-radius:0}
+ .links a{position:relative;z-index:1;padding:.5rem 1rem;font-size:.92rem;border-radius:999px}.links a.on{background:none}
+ .ind{display:block;position:absolute;left:0;top:0;height:100%;width:0;border-radius:999px;background:rgba(var(--accent-rgb),.18);box-shadow:inset 0 0 0 1px rgba(var(--accent-rgb),.5),0 0 20px -4px rgba(var(--accent-rgb),.6);transition:transform .45s cubic-bezier(.3,.8,.2,1),width .45s cubic-bezier(.3,.8,.2,1)}
+ .about{grid-template-columns:1fr 1.15fr}.contact{grid-template-columns:1fr 1fr}.foot-in{grid-template-columns:auto 1fr auto;justify-items:start;text-align:left}.fl{justify-content:center;justify-self:center}
+}
+/* شاشات أكبر: الواجهة بعمودين */
+@media (min-width:960px){.hero-grid{grid-template-columns:1.3fr 1fr}}
+/* احترام إعداد "تقليل الحركة" في نظام المستخدم: إيقاف كل الحركات */
+@media (prefers-reduced-motion:reduce){.float{animation:none!important}.frame{transform:none!important}html{scroll-behavior:auto}*,::before,::after{animation:none!important;transition:none!important}[data-r]:not(.in){opacity:1}}
+/* تنسيق رابط اللوجو لمحاذاة الصورة بشكل مضبوط */
+.logo {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* تحديد حجم اللوجو الصغير */
+.logo img {
+  height: 32px; /* تقدر تغير الرقم ده حسب حجم اللوجو المناسب (مثلاً 28px أو 36px) */
+  width: auto;  /* يحافظ على أبعاد الصورة الأصلية بدون مط أو ضغط */
+  object-fit: contain;
+}

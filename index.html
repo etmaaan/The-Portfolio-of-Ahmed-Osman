@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ✏️ عدّل: عنوان الصفحة ووصفها (يظهران في تبويب المتصفح ومحركات البحث) -->
+<title>Ahmed Osman — Electrical &amp; Computer Engineer</title>
+<meta name="description" content="Portfolio of Ahmed Osman, a graduate engineer with hands-on embedded, electronics and software projects.">
+<!-- الخطوط والأيقونات: تُحمَّل من الإنترنت (Google Fonts + Remix Icon) -->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+<!-- ملف التنسيق -->
+<link href="style.css" rel="stylesheet">
+</head>
+<body>
+<!-- رابط لتخطي القائمة (لتسهيل الاستخدام بلوحة المفاتيح) -->
+<a class="skip" href="#about">Skip to content</a>
+
+<!-- ===== الخلفية الملونة: كتل ضوئية ناعمة (Aurora) + شبكة نقاط خفيفة تعطي عمقاً ===== -->
+<div class="bg" aria-hidden="true">
+  <i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i><i class="blob b4"></i>
+  <i class="grain"></i>
+</div>
+
+<!-- ===== شريط التنقل العائم على شكل كبسولة في منتصف أعلى الصفحة ===== -->
+<header>
+  <nav class="nav" aria-label="Main">
+    <!-- ✏️ عدّل: شعار الموقع (الحروف الأولى من اسمك) -->
+    <!-- استبدال النص بصورة لوجو صغيرة -->
+<a href="#home" class="logo">
+  <img src="./ASSETS/AO LOGO.png" alt="Logo" />
+</a>
+   <!--<a href="#home" class="logo">im<span>.</span></a>--> 
+    <!-- روابط الأقسام: href يجب أن يطابق id القسم. العنصر .ind هو المؤشر المنزلق خلف الرابط النشط -->
+    <ul class="links" id="links">
+      <li class="ind" aria-hidden="true"></li>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#learning">Courses &amp; Certs</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <!-- أزرار تغيير اللون داخل قائمة الجوال فقط -->
+      <li class="mob-acc"><div class="accents" role="group" aria-label="Accent color"></div></li>
+    </ul>
+    <div class="nav-r">
+      <!-- أزرار تغيير لون التمييز (تُنشأ تلقائياً من main.js) -->
+     <!-- <div class="accents" role="group" aria-label="Accent color"></div> -->
+      <!-- زر قائمة الجوال -->
+      <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="links"><i class="ri-menu-3-line"></i></button>
+    </div>
+  </nav>
+</header>
+
+<main>
+<!-- ===== قسم الواجهة (Hero): العنوان + النبذة + الأزرار + الصورة المتحركة ===== -->
+<section class="sec hero" id="home">
+  <div class="wrap hero-grid">
+    <div>
+      <!-- شارة الحالة -->
+      <p class="badge" data-r><span class="dot"></span>Inspired by: The World Through My Camera</p>
+      <!-- ✏️ عدّل: العنوان الرئيسي والنبذة التعريفية -->
+      <h1 data-r>An Engineer Driven by Technology, Creativity & Visual Storytelling.</h1>
+      <p class="lead" data-r>Hi, My name is Ahmed Osman, and I'm an Electronics & Communications Engineering student with no professional title yet, but plenty of curiosity,
+           hands-on learning, and creative ideas. I explore telecom technologies, build my technical knowledge, and bring ideas to life through graphic
+             design and video editing. Whether it's engineering or creativity, I enjoy making things that have a purpose.</p>
+      <!-- أزرار الإجراءات (رابط السيرة الذاتية يُضبط من CONFIG.cvUrl في main.js) -->
+      <div class="btns" data-r>
+  <a href="#projects" class="btn btn-p">View projects <i class="ri-arrow-right-line"></i></a>
+  <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-o" id="cv"><i class="ri-download-2-line"></i> Download CV</a>
+  <a href="#contact" class="btn btn-t">Contact</a>
+</div>
+      <!-- ✏️ عدّل: روابط حساباتك (استبدل # بالرابط الحقيقي) -->
+      <div class="soc" data-r>
+        <a href="https://github.com/etmaaan" aria-label="GitHub" target="_blank" rel="noopener noreferrer"><i class="ri-github-fill"></i></a>
+        <a href="https://www.linkedin.com/in/ahmed-mamdouh-osman" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><i class="ri-linkedin-fill"></i></a>
+        <a href="mailto:eng.ahmed.osman.ao@gmail.com" aria-label="Email" data-copy-link><i class="ri-mail-line"></i></a>
+      </div>
+    </div>
+    <!-- صورة الواجهة: تطفو ببطء وتميل قليلاً مع المؤشر. مسار الصورة في CONFIG.heroImage داخل main.js -->
+    <div class="hero-vis" data-r>
+      <div class="float">
+        <div class="frame tilt" id="heroImg"></div>
+        <span class="fchip"><span class="dot"></span>Driven by: Technology, Creativity & New Ideas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== قسم نبذة عني والمهارات (المهارات تُعدَّل من مصفوفة SKILLS في main.js) ===== -->
+<section class="sec" id="about">
+  <div class="wrap">
+    <h2 data-r>About &amp; skills</h2>
+    <div class="about">
+      <!-- ✏️ عدّل: الفقرتان التعريفيتان -->
+      <div data-r>
+        <p class="lead big">Communications & Electronics Engineering graduate with a strong foundation in telecommunications, networking, 
+          hardware design, and embedded systems. Hands-on experience through technical training in microwave communication, fiber optics,
+           IT infrastructure, and server management.
+            Contributed as a Hardware Design & Implementation team member in the development of a 3-Axis CNC PCB Milling & Drilling Machine.
+             Passionate about solving real-world engineering challenges through continuous learning, innovation, and teamwork.</p>
+        <p class="lead">I like problems where hardware and software meet, and I document what I build so someone else can reproduce it.</p>
+      </div>
+      <div class="skills" id="skills"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== قسم المشاريع والمعامل: أزرار التصفية + البطاقات (تُولَّد من مصفوفة PROJECTS) ===== -->
+<section class="sec" id="projects">
+  <div class="wrap">
+    <h2 data-r>Projects &amp; lab work</h2>
+    <div class="tabs" id="filters" role="tablist" data-r></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<!-- ===== قسم الدورات والتدريبات والشهادات: ثلاثة تبويبات (من الكائن LEARNING) ===== -->
+<section class="sec" id="learning">
+  <div class="wrap">
+    <h2 data-r>Courses, trainings &amp; certifications</h2>
+    <div class="tabs" id="ltabs" role="tablist" data-r></div>
+    <div class="grid lgrid" id="lgrid"></div>
+  </div>
+</section>
+
+<!-- ===== قسم التواصل: بدون نموذج. معلومات سريعة + زر نسخ البريد + صورة ثانية ===== -->
+<section class="sec" id="contact">
+  <div class="wrap contact">
+    <div data-r>
+      <h2>Let's talk</h2>
+      <p class="lead">Always curious, always creating.
+Whether it's technology, photography, or design, I'm always excited to connect with people who share a passion for creativity and new ideas.</p>
+      <!-- ✏️ عدّل: بريدك الإلكتروني (النص داخل span#mail هو ما يُنسخ عند الضغط) -->
+      <div class="mail card"><i class="ri-mail-line"></i><span id="mail">eng.ahmed.osman.ao@gmail.com</span>
+        <button class="copy" id="copy" aria-label="Copy email address"><i class="ri-file-copy-line a"></i><i class="ri-check-line b"></i><span>Copy</span></button></div>
+      <!-- ✏️ عدّل: بيانات التواصل السريعة -->
+      <ul class="info">
+        <li><i class="ri-map-pin-line"></i> PORT-SAID,EGYPT.</li>
+        <li><i class="ri-time-line"></i> Always Around. </li>
+        <li><i class="ri-briefcase-line"></i> Looking for graduate and junior roles.</li>
+      </ul>
+      <div class="soc">
+        <a href="https://github.com/etmaaan" aria-label="GitHub"><i class="ri-github-fill"></i></a>
+        <a href="https://www.linkedin.com/in/ahmed-mamdouh-osman" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a>
+        <a href="https://www.facebook.com/ahmed.etman.33633344?mibextid=LQQJ4d" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="ri-facebook-fill"></i></a>
+        <a href="https://wa.me/201227887358" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="ri-whatsapp-line"></i></a>
+      </div>
+    </div>
+    <!-- الصورة الثانية (بدل النموذج): مسارها في CONFIG.contactImage داخل main.js -->
+    <div class="cvis" data-r>
+      <div class="float f2"><div class="frame tilt wide" id="contactImg"></div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ===== التذييل ===== -->
+<footer class="foot"><div class="wrap foot-in">
+  <p>&copy; <span id="yr"></span> Ahmed Osman </p>
+  <nav class="fl" aria-label="Footer"><a href="#about">About</a><a href="#projects">Projects</a><a href="#learning">Courses &amp; Certs</a><a href="#contact">Contact</a></nav>
+  <div class="soc"><a href="https://github.com/etmaaan" aria-label="GitHub"><i class="ri-github-fill"></i></a><a href="https://www.linkedin.com/in/ahmed-mamdouh-osman" aria-label="LinkedIn"><i class="ri-linkedin-fill"></i></a></div>
+</div></footer>
+
+<!-- ===== درج تفاصيل المشروع: يظهر من اليمين عند الضغط على بطاقة مشروع (يُملأ من main.js) ===== -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="d-t" aria-hidden="true">
+  <button class="x" id="d-x" aria-label="Close details"><i class="ri-close-line"></i></button>
+  <div id="d-body"></div>
+</aside>
+
+<!-- ===== نافذة معاينة صورة الشهادة (Lightbox) ===== -->
+<div class="lb" id="lb" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Certificate preview">
+  <button class="x" id="lb-x" aria-label="Close preview"><i class="ri-close-line"></i></button>
+  <figure id="lb-fig"></figure>
+</div>
+
+<!-- رسالة التأكيد العائمة (مثل: تم نسخ البريد) -->
+<div class="toast" id="toast" role="status"></div>
+
+<!-- ملف الجافاسكربت: كل البيانات والتفاعلات هنا -->
+<script src="main.js"></script>
+</body>
+</html>
